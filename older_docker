@@ -1,0 +1,31 @@
+FROM golang:1.21.0-bullseye
+
+WORKDIR /app
+
+#COPY . .
+COPY go.mod ./
+RUN go mod download
+
+COPY *.go .
+COPY *.html .
+RUN go build -o /goPulseTracker
+
+# RUN CGO_ENABLED=0 GOOS=linux go build -o /opt/go-docker-multistage
+# FROM alpine:latest
+# COPY --from=build /opt/go-docker-multistage /opt/go-docker-multistage
+# EXPOSE 8080
+# ENTRYPOINT ["/opt/go-docker-multistage"]
+
+EXPOSE 8080
+CMD ["/goPulseTracker"]
+
+
+
+
+
+
+
+
+
+
+
